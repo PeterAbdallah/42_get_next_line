@@ -1,0 +1,110 @@
+get_next_line
+
+// create variables: result, static save, stash, buffer
+stash = NULL;
+if (save)
+{
+    stash = strdup(save); // copy old leftover
+    free(save);           // free old static leftover
+    save = NULL;
+}
+
+// read loop: until newline is found or EOF
+while (!strchr(stash, '\n'))  // only check for '\n', not \0
+{
+    int bytes = read(fd, buffer, BUFFER_SIZE);
+    if (bytes <= 0)            // EOF or error
+        break;
+    buffer[bytes] = '\0';      // null-terminate buffer
+
+    char *tmp = stash;          // store old stash
+    stash = strjoin(stash, buffer);  // join new buffer
+    free(tmp);                  // free old stash to prevent leak
+}
+
+// split stash if newline found
+int i = index_of_newline(stash);  // find \n index
+if (i >= 0)                        // newline found
+{
+    result = substr(stash, 0, i + 1);        // line to return
+    save = substr(stash, i + 1, strlen(stash) - (i + 1)); // leftover
+}
+else                                   // no newline, end of file
+{
+    result = strdup(stash);             // return whatever is left
+    save = NULL;                        // nothing remains
+}
+
+free(stash);                            // free temporary stash
+return result;                          // caller frees this
+
+---------------------------------------------------------------------
+
+Sure — here’s a concise step-by-step plan using **exactly those 5 variables**:
+
+---
+
+1. Initialize:
+
+stash = NULL;
+
+2. If `leftovers` exists, copy it to `stash` and free `leftovers`:
+
+stash = strdup(leftovers);
+free(leftovers);
+leftovers = NULL;
+
+3. Loop:
+
+while (!strchr(stash, '\n') && (nbread = read(fd, buffer, BUFFERSIZE)) > 0)
+{
+    buffer[nbread] = '\0';
+    stash = strjoin_and_free_first(stash, buffer);  // free old stash inside strjoin
+}
+
+4. Find newline in stash (`i = index of '\n'`).
+
+5. Split stash:
+
+result = substr(stash, 0, i + 1);                 // line to return
+leftovers = substr(stash, i + 1, strlen(stash) - (i + 1)); // leftover
+
+6. Free stash.
+
+7. Return `result`.
+
+---
+
+That’s it — exactly 5 variables and all steps in order.
+
+-----------------------------------------------------------------
+
+// char	*get_next_line(int fd)
+// {
+// 	static char	*leftovers;
+// 	char		buffer[BUFFERSIZE];
+// 	char		*result;
+// 	char		*stash;
+// 	int			nbread;
+
+// 	stash = NULL;
+// 	if (leftovers != NULL)
+// 	{
+// 		stash = ft_strdup(leftovers);
+// 		free(leftovers);
+// 		leftovers = NULL;
+// 	}
+// 	while (!ft_strchr(stash, '\n'))
+// 	{
+// 		nbread = read(fd, buffer, BUFFERSIZE);
+// 		if (nbread <= 0)
+// 			break ;
+// 		buffer[nbread] = '\0';
+// 		stash = ft_strjoin(stash, buffer);
+// 	}
+// 	result = ft_substr(stash, 0, (ft_strchr(stash, '\n') + 1));
+// 	leftovers = ft_substr(stash, (ft_strchr(stash, '\n') + 1),
+// 			ft_strlen(stash) - (ft_strchr(stash, '\n') + 1));
+// 	free(stash);
+// 	return (result);
+// }
