@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabdalla <pabdalla@student.42beirut.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 21:44:49 by pabdalla          #+#    #+#             */
-/*   Updated: 2025/12/05 01:41:45 by pabdalla         ###   ########.fr       */
+/*   Created: 2025/12/05 01:23:00 by pabdalla          #+#    #+#             */
+/*   Updated: 2025/12/05 02:20:57 by pabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>

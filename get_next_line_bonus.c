@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabdalla <pabdalla@student.42beirut.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 21:44:34 by pabdalla          #+#    #+#             */
-/*   Updated: 2025/12/05 02:32:58 by pabdalla         ###   ########.fr       */
+/*   Created: 2025/12/05 01:12:37 by pabdalla          #+#    #+#             */
+/*   Updated: 2025/12/05 02:29:01 by pabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ char	*read_until_nl(int fd, char *stash, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*leftovers;
+	static char	*leftovers[1024];
 	char		*buffer;
 	char		*stash;
 	char		*result;
 	char		*nl_index;
 
+	if (fd < 0 || fd >= 1024)
+		return (NULL);
 	buffer = (char *)malloc ((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	stash = leftovers;
-	leftovers = NULL;
+	stash = leftovers[fd];
+	leftovers[fd] = NULL;
 	stash = read_until_nl(fd, stash, buffer);
 	free(buffer);
 	if (!stash)
@@ -74,25 +76,8 @@ char	*get_next_line(int fd)
 	if (!nl_index)
 		return (result = ft_strdup(stash), free(stash), result);
 	result = ft_substr(stash, 0, nl_index - stash + 1);
-	leftovers = ft_substr(stash, nl_index - stash + 1,
+	leftovers[fd] = ft_substr(stash, nl_index - stash + 1,
 			ft_strlen(stash) - (nl_index - stash + 1));
 	free(stash);
 	return (result);
 }
-
-// #include <stdio.h>
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	fd = open("text.txt", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
