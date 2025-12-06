@@ -6,11 +6,11 @@
 /*   By: pabdalla <pabdalla@student.42beirut.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 01:22:01 by pabdalla          #+#    #+#             */
-/*   Updated: 2025/12/05 02:16:56 by pabdalla         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:34:56 by pabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(char *s)
 {

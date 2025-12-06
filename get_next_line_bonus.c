@@ -6,11 +6,11 @@
 /*   By: pabdalla <pabdalla@student.42beirut.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 01:12:37 by pabdalla          #+#    #+#             */
-/*   Updated: 2025/12/05 02:29:01 by pabdalla         ###   ########.fr       */
+/*   Updated: 2025/12/06 22:36:35 by pabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *str)
 {
@@ -81,3 +81,28 @@ char	*get_next_line(int fd)
 	free(stash);
 	return (result);
 }
+
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int		fd;
+// 	int		fd2;
+// 	char	*line;
+// 	char	*line2;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	fd2 = open("guide.txt", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	while ((line2 = get_next_line(fd2)))
+// 	{
+// 		printf("%s", line2);
+// 		free(line2);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
